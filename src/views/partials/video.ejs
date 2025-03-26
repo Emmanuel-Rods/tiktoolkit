@@ -1,0 +1,78 @@
+
+<div class="glass-card p-4 transition-all duration-300 hover:shadow-xl animate-fade-in">
+  <div class="row">
+    <!-- Thumbnail or placeholder -->
+    <div class="col-md-2 mb-3 mb-md-0">
+      <div class="bg-tiktok-lightgray rounded overflow-hidden" style="height: 100px;">
+        <% if (video.thumbnail) { %>
+          <img 
+            src="<%= video.thumbnail %>" 
+            alt="Video thumbnail" 
+            class="w-100 h-100 object-fit-cover"
+          />
+        <% } else { %>
+          <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-gradient-to-br from-tiktok-lightgray to-tiktok-gray">
+            <i class="bi bi-film text-gray-300" style="font-size: 2rem;"></i>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    
+    <!-- Video info -->
+    <div class="col-md-10">
+      <!-- Caption and link -->
+      <div class="mb-3">
+        <% if (video.caption) { %>
+          <p class="text-sm text-gray-300 mb-2"><%= video.caption %></p>
+        <% } %>
+        <a 
+          href="<%= video.link %>" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="d-inline-flex align-items-center text-xs text-tiktok-blue hover:underline"
+        >
+          <i class="bi bi-box-arrow-up-right me-1"></i>
+          <%= video.link.substring(0, 40) %>...
+        </a>
+      </div>
+      
+      <!-- Music info -->
+      <% if (video.music) { %>
+        <div class="mb-3">
+          <p class="text-xs text-gray-500 d-flex align-items-center">
+            <i class="bi bi-music-note me-1"></i>
+            <%= video.music %>
+          </p>
+        </div>
+      <% } %>
+      
+      <!-- Stats -->
+      <div class="d-flex flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-eye me-1 text-gray-500"></i>
+          <span class="text-sm font-medium text-white"><%= video.views %></span>
+        </div>
+        
+        <div class="d-flex align-items-center">
+          <i class="bi bi-heart-fill me-1 text-tiktok-pink"></i>
+          <span class="text-sm font-medium text-white"><%= video.likes %></span>
+        </div>
+        
+        <div class="d-flex align-items-center">
+          <i class="bi bi-chat-fill me-1 text-tiktok-blue"></i>
+          <span class="text-sm font-medium text-white"><%= video.comments %></span>
+        </div>
+        
+        <div class="d-flex align-items-center">
+          <i class="bi bi-bookmark-fill me-1 text-green-500"></i>
+          <span class="text-sm font-medium text-white"><%= video.saves %></span>
+        </div>
+        
+        <div class="d-flex align-items-center ms-auto">
+          <i class="bi bi-clock me-1 text-gray-400"></i>
+          <span class="text-xs text-gray-500"><%= video.uploadDate %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

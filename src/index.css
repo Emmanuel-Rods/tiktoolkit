@@ -90,14 +90,14 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-tiktok-black text-white;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-lg rounded-2xl;
+    @apply bg-tiktok-gray/70 backdrop-blur-lg border border-white/10 shadow-lg rounded-2xl;
   }
   
   .tiktok-gradient {
@@ -105,18 +105,22 @@
   }
   
   .shimmer-effect {
-    @apply bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%] animate-shimmer;
+    @apply bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%] animate-shimmer;
   }
   
   .stat-value {
-    @apply text-lg font-semibold;
+    @apply text-lg font-semibold text-white;
   }
   
   .stat-label {
-    @apply text-xs text-gray-500 font-medium;
+    @apply text-xs text-gray-400 font-medium;
   }
   
   .profile-chip {
     @apply px-3 py-1 text-xs font-medium rounded-full;
+  }
+  
+  .dark-glass {
+    @apply bg-tiktok-gray/80 backdrop-blur-lg border border-tiktok-lightgray/50 shadow-lg;
   }
 }
