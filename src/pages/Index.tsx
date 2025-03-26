@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar';
 import TikTokProfile from '../components/TikTokProfile';
 import TikTokVideo from '../components/TikTokVideo';
 import Loader from '../components/Loader';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 // Sample data
 const sampleData = {
@@ -74,9 +75,13 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <header className="text-center mb-10">
+        <header className="text-center mb-10 relative">
+          <div className="absolute right-0 top-0">
+            <ThemeToggle />
+          </div>
+          
           <div className="mb-3 flex justify-center">
             <div className="h-12 w-12 rounded-xl tiktok-gradient flex items-center justify-center shadow-lg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-white">
@@ -87,10 +92,10 @@ const Index = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1 dark:text-white">
             TikToolkit
           </h1>
-          <p className="text-gray-600 max-w-xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
             Enter a TikTok username to fetch profile data and video metrics
           </p>
         </header>
@@ -100,7 +105,7 @@ const Index = () => {
         {loading && <Loader />}
 
         {error && (
-          <div className="mt-8 p-4 bg-red-50 border border-red-100 rounded-xl text-red-500 text-center animate-fade-in">
+          <div className="mt-8 p-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 rounded-xl text-red-500 dark:text-red-400 text-center animate-fade-in">
             {error}
           </div>
         )}
@@ -110,9 +115,9 @@ const Index = () => {
             <TikTokProfile userInfo={data.userInfo} stats={data.stats} />
 
             <div>
-              <h2 className="text-lg font-semibold mb-4 flex items-center">
+              <h2 className="text-lg font-semibold mb-4 flex items-center dark:text-white">
                 <span className="mr-2">Recent Videos</span>
-                <span className="text-xs py-1 px-2 bg-gray-100 rounded-full text-gray-600">
+                <span className="text-xs py-1 px-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-400">
                   {data.results.length} videos
                 </span>
               </h2>
@@ -126,7 +131,7 @@ const Index = () => {
           </div>
         )}
 
-        <footer className="mt-16 text-center text-xs text-gray-500">
+        <footer className="mt-16 text-center text-xs text-gray-500 dark:text-gray-400">
           <p>TikToolkit — Analyze TikTok content efficiently</p>
           <p className="mt-1">Data shown is for demonstration purposes only</p>
         </footer>
