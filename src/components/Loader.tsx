@@ -12,7 +12,7 @@ const Loader = () => {
           <div className="w-16 h-16 rounded-full border-4 border-t-transparent border-r-transparent border-b-tiktok-pink border-l-tiktok-blue animate-spin"></div>
         </div>
       </div>
-      <p className="mt-4 text-sm font-medium text-gray-600 animate-pulse-subtle">Loading data...</p>
+      <p className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-300 animate-pulse-subtle">Loading data...</p>
     </div>
   );
 };

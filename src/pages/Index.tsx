@@ -75,7 +75,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 transition-colors duration-500">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <header className="text-center mb-10 relative">
           <div className="absolute right-0 top-0">
@@ -92,10 +92,10 @@ const Index = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1 dark:text-white">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-1 text-gray-800 dark:text-white">
             TikToolkit
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
             Enter a TikTok username to fetch profile data and video metrics
           </p>
         </header>
@@ -115,9 +115,9 @@ const Index = () => {
             <TikTokProfile userInfo={data.userInfo} stats={data.stats} />
 
             <div>
-              <h2 className="text-lg font-semibold mb-4 flex items-center dark:text-white">
+              <h2 className="text-lg font-semibold mb-4 flex items-center text-gray-800 dark:text-white">
                 <span className="mr-2">Recent Videos</span>
-                <span className="text-xs py-1 px-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-400">
+                <span className="text-xs py-1 px-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-300">
                   {data.results.length} videos
                 </span>
               </h2>
