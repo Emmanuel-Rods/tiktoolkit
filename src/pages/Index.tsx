@@ -5,73 +5,37 @@ import TikTokProfile from '../components/TikTokProfile';
 import TikTokVideo from '../components/TikTokVideo';
 import Loader from '../components/Loader';
 import { ThemeToggle } from '../components/ThemeToggle';
-
-// Sample data
-const sampleData = {
-  userInfo: {
-    username: "adilet.sw",
-    subtitle: "Adilet"
-  },
-  stats: {
-    following: "63",
-    followers: "3354",
-    likes: "283.9K"
-  },
-  results: [
-    {
-      link: "https://www.tiktok.com/@adilet.sw/video/7482813697723845893",
-      views: "1.2M",
-      likes: "103.2K",
-      comments: "1712",
-      saves: "7240",
-      uploadDate: "1w ago",
-      caption: "This is a sample caption for the first video. #tiktok #viral",
-      music: "Original Sound - Adilet"
-    },
-    {
-      link: "https://www.tiktok.com/@adilet.sw/video/7482815762252451127",
-      views: "31.7K",
-      likes: "1439",
-      comments: "70",
-      saves: "499",
-      uploadDate: "1w ago",
-      caption: "Another sample caption for the second video. #trending",
-      music: "Song - Artist"
-    },
-    {
-      link: "https://www.tiktok.com/@adilet.sw/video/7481004022838289707",
-      views: "156.4K",
-      likes: "8201",
-      comments: "203",
-      saves: "1024",
-      uploadDate: "2w ago",
-      caption: "Third sample caption showing what this might look like.",
-      music: "Popular Song - Famous Artist"
-    }
-  ]
-};
+import { TikTokService, TikTokProfileData } from '../services/TikTokService';
+import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
-  const [data, setData] = useState<typeof sampleData | null>(null);
+  const [data, setData] = useState<TikTokProfileData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = (username: string) => {
+  const handleSearch = async (username: string) => {
     setLoading(true);
     setError(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      try {
-        // In a real implementation, you would fetch data from your API here
-        // For demo purposes, we're using the sample data
-        setData(sampleData);
-        setLoading(false);
-      } catch (err) {
-        setError("An error occurred while fetching data");
-        setLoading(false);
-      }
-    }, 1500);
+    try {
+      // Call your TikTok scraper service
+      const profileData = await TikTokService.fetchProfileData(username);
+      setData(profileData);
+      toast({
+        title: "Success",
+        description: `Data for @${username} loaded successfully`,
+      });
+    } catch (err) {
+      console.error("Error:", err);
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+      toast({
+        title: "Error",
+        description: "Failed to fetch TikTok data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -133,7 +97,7 @@ const Index = () => {
 
         <footer className="mt-16 text-center text-xs text-gray-500 dark:text-gray-400">
           <p>TikToolkit — Analyze TikTok content efficiently</p>
-          <p className="mt-1">Data shown is for demonstration purposes only</p>
+          <p className="mt-1">Created with your TikTok scraper</p>
         </footer>
       </div>
     </div>
