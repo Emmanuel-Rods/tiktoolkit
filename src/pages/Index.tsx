@@ -5,13 +5,15 @@ import TikTokProfile from '../components/TikTokProfile';
 import TikTokVideo from '../components/TikTokVideo';
 import Loader from '../components/Loader';
 import { ThemeToggle } from '../components/ThemeToggle';
-import { TikTokService, TikTokProfileData } from '../services/TikTokService';
+import { TikTokService, TikTokProfileData, TikTokVideoData } from '../services/TikTokService';
 import { toast } from '@/hooks/use-toast';
+import FilterDropdown, { SortOption } from '../components/FilterDropdown';
 
 const Index = () => {
   const [data, setData] = useState<TikTokProfileData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sortOption, setSortOption] = useState<SortOption>('all');
 
   const handleSearch = async (username: string) => {
     setLoading(true);
@@ -35,6 +37,46 @@ const Index = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const sortedVideos = React.useMemo(() => {
+    if (!data?.results) return [];
+    
+    // Create a copy of the videos array to avoid mutating the original data
+    const videos = [...data.results];
+    
+    switch (sortOption) {
+      case 'views':
+        return videos.sort((a, b) => parseNumericValue(b.views) - parseNumericValue(a.views));
+      case 'likes':
+        return videos.sort((a, b) => parseNumericValue(b.likes) - parseNumericValue(a.likes));
+      case 'comments':
+        return videos.sort((a, b) => parseNumericValue(b.comments) - parseNumericValue(a.comments));
+      case 'saves':
+        return videos.sort((a, b) => parseNumericValue(b.saves) - parseNumericValue(a.saves));
+      case 'date':
+        return videos.sort((a, b) => {
+          const dateA = new Date(a.uploadDate);
+          const dateB = new Date(b.uploadDate);
+          return dateB.getTime() - dateA.getTime();
+        });
+      default:
+        // 'all' - return in original order
+        return videos;
+    }
+  }, [data, sortOption]);
+
+  // Helper function to parse numeric values with K, M suffixes
+  const parseNumericValue = (value: string): number => {
+    const numStr = value.replace(/,/g, '').toLowerCase();
+    
+    if (numStr.includes('k')) {
+      return parseFloat(numStr.replace('k', '')) * 1000;
+    } else if (numStr.includes('m')) {
+      return parseFloat(numStr.replace('m', '')) * 1000000;
+    } else {
+      return parseFloat(numStr) || 0;
     }
   };
 
@@ -79,15 +121,18 @@ const Index = () => {
             <TikTokProfile userInfo={data.userInfo} stats={data.stats} />
 
             <div>
-              <h2 className="text-lg font-semibold mb-4 flex items-center text-gray-800 dark:text-white">
-                <span className="mr-2">Recent Videos</span>
-                <span className="text-xs py-1 px-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-300">
-                  {data.results.length} videos
-                </span>
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold flex items-center text-gray-800 dark:text-white">
+                  <span className="mr-2">Recent Videos</span>
+                  <span className="text-xs py-1 px-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-600 dark:text-gray-300">
+                    {data.results.length} videos
+                  </span>
+                </h2>
+                <FilterDropdown onSortChange={setSortOption} currentSort={sortOption} />
+              </div>
               
               <div className="space-y-4">
-                {data.results.map((video, index) => (
+                {sortedVideos.map((video, index) => (
                   <TikTokVideo key={index} video={video} />
                 ))}
               </div>
