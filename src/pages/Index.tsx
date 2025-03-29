@@ -67,7 +67,7 @@ const Index = () => {
     }
   }, [data, sortOption]);
 
-  // Helper function to parse numeric values with K, M suffixes
+  // Helper function to parse numeric values with K, M, B suffixes
   const parseNumericValue = (value: string): number => {
     const numStr = value.replace(/,/g, '').toLowerCase();
     
@@ -75,6 +75,8 @@ const Index = () => {
       return parseFloat(numStr.replace('k', '')) * 1000;
     } else if (numStr.includes('m')) {
       return parseFloat(numStr.replace('m', '')) * 1000000;
+    } else if (numStr.includes('b')) {
+      return parseFloat(numStr.replace('b', '')) * 1000000000;
     } else {
       return parseFloat(numStr) || 0;
     }
