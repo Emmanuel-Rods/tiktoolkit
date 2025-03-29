@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import TikTokProfile from '../components/TikTokProfile';
@@ -14,6 +13,21 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<SortOption>('all');
+
+  // Helper function to parse numeric values with K, M, B suffixes
+  const parseNumericValue = (value: string): number => {
+    const numStr = value.replace(/,/g, '').toLowerCase();
+    
+    if (numStr.includes('k')) {
+      return parseFloat(numStr.replace('k', '')) * 1000;
+    } else if (numStr.includes('m')) {
+      return parseFloat(numStr.replace('m', '')) * 1000000;
+    } else if (numStr.includes('b')) {
+      return parseFloat(numStr.replace('b', '')) * 1000000000;
+    } else {
+      return parseFloat(numStr) || 0;
+    }
+  };
 
   const handleSearch = async (username: string) => {
     setLoading(true);
@@ -66,21 +80,6 @@ const Index = () => {
         return videos;
     }
   }, [data, sortOption]);
-
-  // Helper function to parse numeric values with K, M, B suffixes
-  const parseNumericValue = (value: string): number => {
-    const numStr = value.replace(/,/g, '').toLowerCase();
-    
-    if (numStr.includes('k')) {
-      return parseFloat(numStr.replace('k', '')) * 1000;
-    } else if (numStr.includes('m')) {
-      return parseFloat(numStr.replace('m', '')) * 1000000;
-    } else if (numStr.includes('b')) {
-      return parseFloat(numStr.replace('b', '')) * 1000000000;
-    } else {
-      return parseFloat(numStr) || 0;
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 transition-colors duration-500">
