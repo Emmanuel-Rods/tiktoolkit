@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ExternalLink, Eye, Heart, MessageCircle, Bookmark, Clock } from 'lucide-react';
+import { ExternalLink, Eye, Heart, MessageCircle, Bookmark, Clock, Video } from 'lucide-react';
 
 interface VideoProps {
   video: {
@@ -21,7 +21,7 @@ const TikTokVideo: React.FC<VideoProps> = ({ video }) => {
     <div className="glass-card p-5 transition-all duration-300 hover:shadow-xl animate-fade-in dark:bg-gray-800/70 dark:backdrop-blur-lg dark:border-gray-700/30">
       <div className="flex flex-col md:flex-row gap-4">
         {/* Thumbnail or placeholder */}
-        <div className="w-full md:w-32 h-32 flex-shrink-0 bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+        <div className="w-full md:w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
           {video.thumbnail ? (
             <img 
               src={video.thumbnail} 
@@ -30,9 +30,7 @@ const TikTokVideo: React.FC<VideoProps> = ({ video }) => {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-              <svg className="w-12 h-12 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
+              <Video className="w-12 h-12 text-gray-300 dark:text-gray-500" />
             </div>
           )}
         </div>

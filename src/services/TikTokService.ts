@@ -6,6 +6,7 @@ export interface TikTokProfileData {
   userInfo: {
     username: string;
     subtitle: string;
+    avatarUrl?: string; // Added avatarUrl field
   };
   stats: {
     following: string;

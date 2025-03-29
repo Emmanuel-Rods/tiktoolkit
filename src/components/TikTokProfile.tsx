@@ -1,11 +1,13 @@
 
 import React from 'react';
 import { Users, Heart, User } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface ProfileProps {
   userInfo: {
     username: string;
     subtitle: string;
+    avatarUrl?: string;
   };
   stats: {
     following: string;
@@ -21,11 +23,15 @@ const TikTokProfile: React.FC<ProfileProps> = ({ userInfo, stats }) => {
         <div className="bg-gradient-to-r from-tiktok-blue to-tiktok-pink h-16"></div>
         <div className="px-6 pb-6 relative">
           <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-            <div className="w-20 h-20 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-4 border-white dark:border-gray-800 shadow-md">
-              <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                <User className="w-8 h-8 text-gray-400 dark:text-gray-300" />
-              </div>
-            </div>
+            <Avatar className="w-20 h-20 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-4 border-white dark:border-gray-800 shadow-md">
+              {userInfo.avatarUrl ? (
+                <AvatarImage src={userInfo.avatarUrl} alt={userInfo.username} className="object-cover" />
+              ) : (
+                <AvatarFallback className="bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-300">
+                  <User className="w-8 h-8" />
+                </AvatarFallback>
+              )}
+            </Avatar>
           </div>
           
           <div className="mt-14 text-center">
